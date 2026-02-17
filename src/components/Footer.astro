@@ -1,0 +1,133 @@
+---
+import { companyInfo } from '../data/company'
+import { Phone, Mail, MapPin } from 'lucide-react'
+
+const currentYear = new Date().getFullYear()
+
+const footerLinks = {
+	company: [
+		{ name: 'About Us', href: '/about' },
+		{ name: 'Services', href: '/services' },
+		{ name: 'Projects', href: '/projects' },
+		{ name: 'Clients', href: '/clients' },
+		{ name: 'Careers', href: '/careers' },
+	],
+	services: [
+		{ name: 'HVAC & Clean Room', href: '/services#hvac' },
+		{ name: 'Electrical Services', href: '/services#electrical' },
+		{ name: 'Fire Fighting', href: '/services#firefighting' },
+		{ name: 'Plumbing & PHE', href: '/services#plumbing' },
+		{ name: 'Mechanical & Piping', href: '/services#mechanical' },
+	],
+}
+---
+
+<footer class="bg-accent-navy text-white">
+	<div class="container-custom section-padding">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+			<!-- Company Info -->
+			<div class="lg:col-span-2">
+				<img 
+					src="/logo-white.svg" 
+					alt="Lale Enterprises" 
+					class="h-12 w-auto mb-4"
+				/>
+				<p class="text-gray-300 mb-4 max-w-md">
+					{companyInfo.about.summary}
+				</p>
+				<div class="flex flex-wrap gap-2 mb-4">
+					{companyInfo.sectors.map((sector) => (
+						<span class="px-3 py-1 bg-white/10 rounded-full text-sm">
+							{sector}
+						</span>
+					))}
+				</div>
+			</div>
+
+			<!-- Quick Links -->
+			<div>
+				<h3 class="font-heading font-bold text-lg mb-4">Company</h3>
+				<ul class="space-y-2">
+					{footerLinks.company.map((link) => (
+						<li>
+							<a 
+								href={link.href}
+								class="text-gray-300 hover:text-white transition-colors"
+							>
+								{link.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+
+			<!-- Services Links -->
+			<div>
+				<h3 class="font-heading font-bold text-lg mb-4">Services</h3>
+				<ul class="space-y-2">
+					{footerLinks.services.map((link) => (
+						<li>
+							<a 
+								href={link.href}
+								class="text-gray-300 hover:text-white transition-colors"
+							>
+								{link.name}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+
+		<!-- Contact Information -->
+		<div class="mt-12 pt-8 border-t border-white/20">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<div class="flex items-start space-x-3">
+					<Phone class="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+					<div>
+						<p class="font-medium mb-1">Phone</p>
+						<a href={`tel:${companyInfo.contact.phones[0]}`} class="text-gray-300 hover:text-white block">
+							{companyInfo.contact.phones[0]}
+						</a>
+						<a href={`tel:${companyInfo.contact.phones[1]}`} class="text-gray-300 hover:text-white block">
+							{companyInfo.contact.phones[1]}
+						</a>
+					</div>
+				</div>
+
+				<div class="flex items-start space-x-3">
+					<Mail class="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+					<div>
+						<p class="font-medium mb-1">Email</p>
+						<a 
+							href={`mailto:${companyInfo.contact.email}`}
+							class="text-gray-300 hover:text-white"
+						>
+							{companyInfo.contact.email}
+						</a>
+					</div>
+				</div>
+
+				<div class="flex items-start space-x-3">
+					<MapPin class="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+					<div>
+						<p class="font-medium mb-1">Location</p>
+						<p class="text-gray-300">
+							{companyInfo.contact.address}
+						</p>
+						<p class="text-gray-400 text-sm mt-1">
+							{companyInfo.contact.branch}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bottom Bar -->
+		<div class="mt-12 pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4">
+			<p class="text-gray-400 text-sm">
+				© {currentYear} Lale Enterprises. All rights reserved.
+			</p>
+		</div>
+	</div>
+</footer>

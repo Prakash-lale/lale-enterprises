@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import BackToTop from '../components/BackToTop'
+import ScrollReveal from '../components/ScrollReveal'
+import { companyInfo } from '../data/company'
+import { Building2, Target, Award, Users, CheckCircle } from 'lucide-react'
+---
+
+<BaseLayout 
+	title="About Us - Lale Enterprises"
+	description="Learn about Lale Enterprises, a leading provider of turnkey engineering solutions across India"
+>
+	<Header />
+	<BackToTop client:load />
+
+	<!-- Hero Section -->
+	<section class="relative pt-32 pb-16 gradient-bg">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h1 class="text-center mb-6 text-3xl md:text-5xl lg:text-6xl">
+					<span class="text-gradient">About</span> Lale Enterprises
+				</h1>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-base md:text-lg lg:text-xl text-gray-600 text-center max-w-3xl mx-auto">
+					{companyInfo.about.summary}
+				</p>
+			</ScrollReveal>
+		</div>
+	</section>
+
+	<!-- Mission & Vision -->
+	<section class="section-padding bg-white">
+		<div class="container-custom">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+				<ScrollReveal client:load className="h-full">
+					<div class="card-hover p-8 h-full">
+						<div class="w-16 h-16 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mb-6">
+							<Target className="w-8 h-8 text-white" />
+						</div>
+						<h2 class="text-2xl font-heading font-bold mb-4">Our Mission</h2>
+						<p class="text-gray-600 text-lg leading-relaxed">
+							{companyInfo.about.mission}
+						</p>
+					</div>
+				</ScrollReveal>
+
+				<ScrollReveal client:load delay={0.2} className="h-full">
+					<div class="card-hover p-8 h-full">
+						<div class="w-16 h-16 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mb-6">
+							<Award className="w-8 h-8 text-white" />
+						</div>
+						<h2 class="text-2xl font-heading font-bold mb-4">Our Vision</h2>
+						<p class="text-gray-600 text-lg leading-relaxed">
+							{companyInfo.about.vision}
+						</p>
+					</div>
+				</ScrollReveal>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Choose Us - Detailed -->
+	<section class="section-padding gradient-bg">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-4 text-gradient">Why Choose Lale Enterprises</h2>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-16">
+					We stand out in the engineering industry through our commitment to excellence and customer satisfaction
+				</p>
+			</ScrollReveal>
+
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+				{companyInfo.whyChooseUs.map((item, index) => (
+					<ScrollReveal client:load delay={index * 0.1} className="h-full">
+						<div class="card-hover p-8 flex gap-6 h-full">
+							<div class="flex-shrink-0">
+								<div class="w-14 h-14 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+									<CheckCircle className="w-7 h-7 text-white" />
+								</div>
+							</div>
+							<div>
+								<h3 class="text-xl font-heading font-bold mb-3">{item.title}</h3>
+								<p class="text-gray-600 leading-relaxed">{item.description}</p>
+							</div>
+						</div>
+					</ScrollReveal>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Core Values -->
+	<section class="section-padding bg-white">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-16 text-gradient">Our Core Values</h2>
+			</ScrollReveal>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+				<ScrollReveal client:load delay={0.1}>
+					<div class="text-center">
+						<div class="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-4">
+							<Building2 className="w-10 h-10 text-primary-500" />
+						</div>
+						<h3 class="text-lg font-heading font-bold mb-2">Quality</h3>
+						<p class="text-gray-600">Uncompromising standards in every project we deliver</p>
+					</div>
+				</ScrollReveal>
+
+				<ScrollReveal client:load delay={0.2}>
+					<div class="text-center">
+						<div class="w-20 h-20 rounded-full bg-secondary-100 flex items-center justify-center mx-auto mb-4">
+							<Target className="w-10 h-10 text-secondary-500" />
+						</div>
+						<h3 class="text-lg font-heading font-bold mb-2">Integrity</h3>
+						<p class="text-gray-600">Transparent and ethical in all our business practices</p>
+					</div>
+				</ScrollReveal>
+
+				<ScrollReveal client:load delay={0.3}>
+					<div class="text-center">
+						<div class="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-4">
+							<Users className="w-10 h-10 text-primary-500" />
+						</div>
+						<h3 class="text-lg font-heading font-bold mb-2">Teamwork</h3>
+						<p class="text-gray-600">Collaborative approach for optimal results</p>
+					</div>
+				</ScrollReveal>
+
+				<ScrollReveal client:load delay={0.4}>
+					<div class="text-center">
+						<div class="w-20 h-20 rounded-full bg-secondary-100 flex items-center justify-center mx-auto mb-4">
+							<Award className="w-10 h-10 text-secondary-500" />
+						</div>
+						<h3 class="text-lg font-heading font-bold mb-2">Excellence</h3>
+						<p class="text-gray-600">Continuous improvement and innovation</p>
+					</div>
+				</ScrollReveal>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="section-padding bg-gradient-to-br from-primary-500 to-secondary-500 text-white">
+		<div class="container-custom">
+			<div class="max-w-3xl mx-auto text-center">
+				<ScrollReveal client:load>
+					<h2 class="mb-6 text-white">Partner With Us</h2>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.2}>
+					<p class="text-xl mb-8 text-white/90">
+						Experience the difference of working with a dedicated turnkey engineering partner
+					</p>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.4}>
+					<a href="/contact" class="btn bg-white text-primary-500 hover:bg-gray-100">
+						Start Your Project
+					</a>
+				</ScrollReveal>
+			</div>
+		</div>
+	</section>
+
+	<Footer />
+</BaseLayout>

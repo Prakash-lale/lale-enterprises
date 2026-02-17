@@ -1,17 +1,369 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import BackToTop from '../components/BackToTop'
+import ServiceCard from '../components/ServiceCard'
+import ClientLogo from '../components/ClientLogo'
+import ScrollReveal from '../components/ScrollReveal'
+import { ArrowRight, CheckCircle, MessageSquare, PenTool, Cog, ShieldCheck, Award, FileCheck } from 'lucide-react'
+import { services } from '../data/services'
+import { clients } from '../data/clients'
+import { projects } from '../data/projects'
+import { companyInfo } from '../data/company'
+import ProjectCard from '../components/ProjectCard'
+import InfiniteLogoSlider from '../components/InfiniteLogoSlider'
 
+// Map service IDs to shortened names for UI
+const serviceShortNames: Record<string, string> = {
+	'hvac': 'HVAC & Clean Room',
+	'electrical': 'Electrical',
+	'firefighting': 'Fire Fighting',
+	'plumbing': 'Plumbing & PHE',
+	'mechanical': 'Mechanical & Piping'
+};
+
+// Transform featured projects for display
+const featuredProjects = projects.slice(0, 3).map(project => ({
+	...project,
+	displayCategory: serviceShortNames[project.serviceId] || project.category
+}));
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Lale Enterprises - End-to-End Turnkey Engineering Solutions">
+	<Header />
+	<BackToTop client:load />
+
+	<!-- Hero Section -->
+	<section class="relative min-h-screen flex items-center gradient-bg pt-24 overflow-hidden">
+		<!-- Background Decorative Elements -->
+		<div class="absolute inset-0 overflow-hidden pointer-events-none">
+			<div class="absolute top-20 left-20 w-72 h-72 bg-primary-300/10 rounded-full blur-3xl"></div>
+		</div>
+
+		<!-- Hero Image (Full Right Side on Desktop) -->
+		<div class="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
+			<ScrollReveal client:load direction="right" className="h-full">
+				<div class="h-full w-full relative">
+					<img 
+						src="/heroimage.png" 
+						alt="Engineering Excellence" 
+						class="w-full h-full object-cover"
+					/>
+					<div class="absolute inset-0 bg-gradient-to-r from-primary-50/20 to-transparent"></div>
+					
+					<!-- Floating Badge -->
+					<div class="absolute bottom-12 left-12 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-premium animate-float z-20 border border-white/20">
+						<div class="flex items-center gap-4">
+							<div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg">
+								<CheckCircle className="w-8 h-8 text-white" />
+							</div>
+							<div>
+								<p class="text-xs text-primary-600 font-bold uppercase tracking-widest mb-1">Trusted Partner</p>
+								<p class="font-heading font-black text-2xl text-gray-900 leading-none">Since 2018</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ScrollReveal>
+		</div>
+
+		<div class="container-custom relative z-10 py-12">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<!-- Text Content (Left) -->
+				<div class="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+					<ScrollReveal client:load delay={0.2}>
+						<h1 class="font-heading font-bold mb-6 animate-fade-in text-3xl md:text-5xl lg:text-7xl">
+							<span class="block text-gradient">End-to-End</span>
+							<span class="block mt-2">Turnkey Engineering Solutions</span>
+						</h1>
+					</ScrollReveal>
+
+					<ScrollReveal client:load delay={0.4} direction="up">
+						<p class="text-lg md:text-xl lg:text-2xl text-gray-600 mb-6 font-medium">
+							Industrial <span class="text-primary-500">•</span> Commercial <span class="text-primary-500">•</span> Residential Projects
+						</p>
+					</ScrollReveal>
+
+					<ScrollReveal client:load delay={0.6} direction="up">
+						<p class="text-base md:text-lg text-gray-600 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
+							{companyInfo.about.summary}
+						</p>
+					</ScrollReveal>
+
+					<ScrollReveal client:load delay={0.8} direction="up">
+						<div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
+							<a href="/services" class="btn-primary group px-8 py-3.5 text-base md:text-lg">
+								Our Services
+								<ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+							</a>
+							<a href="/contact" class="btn-outline px-8 py-3.5 text-base md:text-lg border-2">
+								Get in Touch
+							</a>
+						</div>
+					</ScrollReveal>
+				</div>
+
+				<!-- Mobile Image (Shown only on small screens) -->
+				<div class="lg:hidden relative">
+					<ScrollReveal client:load delay={0.4}>
+						<div class="relative rounded-2xl overflow-hidden shadow-2xl p-1 bg-white">
+							<img 
+								src="/heroimage.png" 
+								alt="Engineering Excellence" 
+								class="w-full rounded-xl aspect-[4/3] object-cover"
+							/>
+						</div>
+					</ScrollReveal>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<!-- About Summary Section -->
+	<section class="section-padding bg-white">
+		<div class="container-custom">
+			<div class="max-w-4xl mx-auto">
+				<ScrollReveal client:load>
+					<h2 class="text-center mb-6 text-gradient">About Lale Enterprises</h2>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.2}>
+					<p class="text-lg text-gray-600 text-center mb-6">
+						{companyInfo.about.mission}
+					</p>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.4}>
+					<div class="flex flex-wrap justify-center gap-4">
+						{companyInfo.sectors.map((sector) => (
+							<span class="px-6 py-3 bg-primary-50 text-primary-700 rounded-lg font-medium">
+								{sector}
+							</span>
+						))}
+					</div>
+				</ScrollReveal>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Process Section -->
+	<section class="section-padding bg-gray-50">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-4 text-gradient">Our Process</h2>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-16">
+					A structured approach to delivering engineering excellence from concept to commissioning
+				</p>
+			</ScrollReveal>
+
+			<div class="relative">
+				<!-- Connecting Line (Desktop) -->
+				<div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -translate-y-1/2 z-0"></div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+					{[
+						{
+							step: '01',
+							title: 'Consultation',
+							description: 'We analyze your requirements and site conditions to understand project scope.',
+							icon: 'MessageSquare',
+						},
+						{
+							step: '02',
+							title: 'Design',
+							description: 'Our engineers create detailed schematics and plans optimized for efficiency.',
+							icon: 'PenTool',
+						},
+						{
+							step: '03',
+							title: 'Execution',
+							description: 'Precision installation using high-quality materials and skilled labor.',
+							icon: 'Cog', // Changed from HardHat (not in lucide imports yet) or similar
+						},
+						{
+							step: '04',
+							title: 'Support',
+							description: 'Testing, commissioning, and handover with comprehensive maintenance support.',
+							icon: 'CheckCircle',
+						},
+					].map((item, index) => (
+						<ScrollReveal client:load delay={index * 0.2}>
+							<div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 relative group hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col">
+								<div class="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4 shadow-md group-hover:scale-110 transition-transform">
+									{item.step}
+								</div>
+								<h3 class="text-xl font-heading font-bold mb-3">{item.title}</h3>
+								<p class="text-gray-600 text-sm leading-relaxed flex-grow">{item.description}</p>
+							</div>
+						</ScrollReveal>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Services Section -->
+	<section class="section-padding gradient-bg">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-4 text-gradient">Our Services</h2>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
+					Comprehensive engineering solutions delivered with expertise and precision
+				</p>
+			</ScrollReveal>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{services.map((service, index) => (
+					<ServiceCard client:load service={service} index={index} />
+				))}
+			</div>
+
+			<ScrollReveal client:load delay={0.6}>
+				<div class="text-center mt-12">
+					<a href="/services" class="btn-primary">
+						View All Services
+					</a>
+				</div>
+			</ScrollReveal>
+		</div>
+	</section>
+
+	<!-- Why Choose Us Section -->
+	<section class="section-padding bg-white">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-4 text-gradient">Why Choose Us</h2>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
+					Trusted by leading organizations for quality, reliability, and excellence
+				</p>
+			</ScrollReveal>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{companyInfo.whyChooseUs.map((item, index) => (
+					<ScrollReveal client:load delay={index * 0.1}>
+						<div class="card-hover p-6 text-center h-full flex flex-col">
+							<div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mx-auto mb-4">
+								<CheckCircle className="w-8 h-8 text-white" />
+							</div>
+							<h3 class="text-xl font-heading font-bold mb-3">{item.title}</h3>
+							<p class="text-gray-600 flex-grow">{item.description}</p>
+						</div>
+					</ScrollReveal>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Certifications & Standards Section -->
+	<section class="py-12 bg-primary-900 text-white">
+		<div class="container-custom">
+			<div class="flex flex-col md:flex-row items-center justify-between gap-8">
+				<div class="text-center md:text-left">
+					<h3 class="text-2xl font-heading font-bold mb-2">Committed to Excellence & Safety</h3>
+					<p class="text-primary-100">Adhering to global standards in Quality, Safety, and Environment management.</p>
+				</div>
+				
+				<div class="flex flex-wrap justify-center gap-6">
+					{[
+						{ icon: ShieldCheck, text: 'Safety First' },
+						{ icon: Award, text: 'ISO Standards' }, // Placeholder for ISO 9001
+						{ icon: FileCheck, text: 'NBC Compliant' },
+					].map(item => (
+						<div class="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-full backdrop-blur-sm border border-white/10">
+							<item.icon className="w-5 h-5 text-secondary-400" />
+							<span class="font-semibold">{item.text}</span>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Featured Projects Section -->
+	<section class="section-padding bg-white relative overflow-hidden">
+		<div class="container-custom relative z-10">
+			<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+				<div class="max-w-2xl">
+					<ScrollReveal client:load>
+						<h2 class="text-gradient mb-4">Featured Projects</h2>
+					</ScrollReveal>
+					<ScrollReveal client:load delay={0.2}>
+						<p class="text-lg text-gray-600">
+							Explore how we solve complex engineering challenges through innovation and technical precision.
+						</p>
+					</ScrollReveal>
+				</div>
+				<ScrollReveal client:load delay={0.4}>
+					<a href="/projects" class="btn-outline">
+						View All Projects <ArrowRight className="ml-2 w-4 h-4" />
+					</a>
+				</ScrollReveal>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{featuredProjects.map((project, index) => (
+					<ProjectCard client:load project={{...project, category: project.displayCategory}} index={index} />
+				))}
+			</div>
+		</div>
+
+		{/* Decorative background element */}
+		<div class="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl"></div>
+	</section>
+
+	<!-- Clients Section -->
+	<section class="section-padding gradient-bg">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-4 text-gradient">Our Clients</h2>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
+					Proud to serve industry leaders across pharmaceuticals, construction, and infrastructure
+				</p>
+			</ScrollReveal>
+
+			<div class="mt-8">
+				<InfiniteLogoSlider client:load clients={clients} />
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="section-padding bg-gradient-to-br from-primary-500 to-secondary-500 text-white">
+		<div class="container-custom">
+			<div class="max-w-3xl mx-auto text-center">
+				<ScrollReveal client:load>
+					<h2 class="mb-6 text-white">Ready to Start Your Project?</h2>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.2}>
+					<p class="text-xl mb-8 text-white/90">
+						Let's discuss how we can bring your engineering vision to life with our turnkey solutions
+					</p>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.4}>
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+						<a href="/contact" class="btn bg-white text-primary-500 hover:bg-gray-100">
+							Contact Us Today
+						</a>
+						<a href="tel:+918956813579" class="btn border-2 border-white text-white hover:bg-white hover:text-primary-500">
+							Call Now
+						</a>
+					</div>
+				</ScrollReveal>
+			</div>
+		</div>
+	</section>
+
+	<Footer />
+</BaseLayout>

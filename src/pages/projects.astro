@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import BackToTop from '../components/BackToTop'
+import ScrollReveal from '../components/ScrollReveal'
+import { projects } from '../data/projects'
+import { services } from '../data/services'
+import ProjectGrid from '../components/ProjectGrid'
+import { Building2, Wrench, Zap, Droplets, Flame, Search } from 'lucide-react'
+
+// Map service IDs to shortened names for UI
+const serviceShortNames: Record<string, string> = {
+	'hvac': 'HVAC & Clean Room',
+	'electrical': 'Electrical',
+	'firefighting': 'Fire Fighting',
+	'plumbing': 'Plumbing & PHE',
+	'mechanical': 'Mechanical & Piping'
+};
+
+// Get unique services used in projects
+const usedServiceIds = [...new Set(projects.map(p => p.serviceId))];
+const categories = [
+	{ id: 'All', name: 'All' },
+	...usedServiceIds.map(id => ({
+		id,
+		name: serviceShortNames[id] || id
+	}))
+];
+
+// Prepare projects with their display categories for the cards
+const displayProjects = projects.map(project => ({
+	...project,
+	category: serviceShortNames[project.serviceId] || project.category
+}));
+---
+
+<BaseLayout 
+	title="Our Projects - Lale Enterprises"
+	description="Explore our portfolio of successful engineering projects across various sectors including industrial, commercial, and residential solutions."
+>
+	<Header />
+	<BackToTop client:load />
+
+	<!-- Hero Section -->
+	<section class="relative pt-32 pb-16 gradient-bg overflow-hidden">
+		<div class="container-custom relative z-10">
+			<ScrollReveal client:load>
+				<h1 class="text-center mb-6 text-3xl md:text-5xl lg:text-6xl">
+					<span class="text-gradient">Our Projects</span>
+				</h1>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-base md:text-lg lg:text-xl text-gray-600 text-center max-w-3xl mx-auto">
+					Demonstrating technical excellence and reliable delivery across diverse engineering domains.
+				</p>
+			</ScrollReveal>
+		</div>
+
+		{/* Decorative background element */}
+		<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+	</section>
+
+	<!-- Projects Section -->
+	<section class="section-padding bg-white relative">
+		<div class="container-custom">
+			<ProjectGrid client:load projects={displayProjects} categories={categories} />
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="section-padding bg-accent-navy text-white relative overflow-hidden">
+		<!-- Background Pattern -->
+		<div class="absolute inset-0 opacity-10">
+			<div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+		</div>
+
+		<div class="container-custom relative z-10">
+			<div class="max-w-3xl mx-auto text-center">
+				<ScrollReveal client:load>
+					<h2 class="mb-6 text-white">Have a Project in Mind?</h2>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.2}>
+					<p class="text-xl mb-10 text-gray-300">
+						Whether it's a pharmaceutical clean room or a high-rise electrification project, our team is ready to deliver.
+					</p>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.4}>
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+						<a href="/contact" class="btn-primary min-w-[200px]">
+							Start a Consultation
+						</a>
+						<a href="/services" class="btn-outline border-white text-white hover:bg-white hover:text-accent-navy min-w-[200px]">
+							Explore Services
+						</a>
+					</div>
+				</ScrollReveal>
+			</div>
+		</div>
+	</section>
+
+	<Footer />
+</BaseLayout>
+
+<style>
+	/* Alpine.js handles display, but this prevents layout shift if Alpine takes a moment to load */
+	[x-cloak] { display: none !important; }
+</style>
+

@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import BackToTop from '../../components/BackToTop'
+import ScrollReveal from '../../components/ScrollReveal'
+import ProjectCard from '../../components/ProjectCard'
+import { services } from '../../data/services'
+import { projects } from '../../data/projects'
+import * as LucideIcons from 'lucide-react'
+import { ArrowRight, CheckCircle, ChevronRight } from 'lucide-react'
+
+export async function getStaticPaths() {
+  return services.map(service => ({
+    params: { id: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const serviceProjects = projects.filter(p => p.serviceId === service.id);
+
+// Dynamically get the icon component
+const IconComponent = LucideIcons[service.icon as keyof typeof LucideIcons];
+---
+
+<BaseLayout title={`${service.title} - Lale Enterprises`}>
+	<Header />
+	<BackToTop client:load />
+
+	<main class="pt-24">
+		<!-- Hero Section -->
+		<section class="relative py-20 bg-gray-900 text-white overflow-hidden">
+			<div class="absolute inset-0 opacity-30">
+				<img src={service.image} alt="" class="w-full h-full object-cover" />
+				<div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900"></div>
+			</div>
+			
+			<div class="container-custom relative z-10">
+				<div class="max-w-3xl">
+					<nav class="flex items-center gap-2 text-primary-400 mb-8 text-sm font-medium">
+						<a href="/" class="hover:text-white transition-colors">Home</a>
+						<ChevronRight className="w-4 h-4" />
+						<a href="/services" class="hover:text-white transition-colors">Services</a>
+						<ChevronRight className="w-4 h-4" />
+						<span class="text-white">{service.title}</span>
+					</nav>
+					
+					<ScrollReveal client:load>
+						<div class="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-primary-900/20">
+							{IconComponent && <IconComponent className="w-10 h-10 text-white" />}
+						</div>
+						<h1 class="text-4xl md:text-6xl font-heading font-bold mb-6 italic">{service.title}</h1>
+						<p class="text-xl text-gray-300 leading-relaxed font-medium mb-8">
+							{service.description}
+						</p>
+						<a href="#contact" class="btn-primary inline-flex">
+							Enquire About This Service
+						</a>
+					</ScrollReveal>
+				</div>
+			</div>
+		</section>
+
+		<!-- Service Details -->
+		<section class="section-padding bg-white">
+			<div class="container-custom">
+				<div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+					<!-- Main Content -->
+					<div class="lg:col-span-2">
+						<ScrollReveal client:load>
+							<h2 class="text-3xl font-heading font-bold mb-8 italic">Service Overview</h2>
+							<p class="text-lg text-gray-600 mb-12 leading-relaxed whitespace-pre-line">
+								{service.fullDescription}
+							</p>
+
+							<h3 class="text-2xl font-heading font-bold mb-8 italic">Key Features & Capabilities</h3>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								{service.features.map((feature) => {
+									const FeatureIcon = LucideIcons[feature.icon as keyof typeof LucideIcons];
+									return (
+										<div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-primary-200 transition-colors group">
+											<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover:bg-primary-600 transition-colors">
+												{FeatureIcon && <FeatureIcon className="w-6 h-6 text-primary-600 group-hover:text-white transition-colors" />}
+											</div>
+											<h4 class="font-bold text-gray-900 mb-2">{feature.title}</h4>
+											<p class="text-gray-600 text-sm">{feature.description}</p>
+										</div>
+									)
+								})}
+							</div>
+						</ScrollReveal>
+					</div>
+
+					<!-- Sidebar Area -->
+					<div class="space-y-10">
+						<!-- Scope of Work -->
+						<div class="p-8 rounded-2xl glass border border-gray-100 sticky top-32">
+							<h3 class="text-xl font-heading font-bold mb-6 italic">Scope of Work</h3>
+							<ul class="space-y-4">
+								{service.details.map((detail) => (
+									<li class="flex items-start gap-3">
+										<CheckCircle className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
+										<span class="text-gray-700 text-sm font-medium">{detail}</span>
+									</li>
+								))}
+							</ul>
+							<div class="mt-10 p-6 bg-primary-600 rounded-xl text-white">
+								<h4 class="font-bold mb-2">Need a consultation?</h4>
+								<p class="text-sm text-primary-100 mb-6">Let our experts help you with your next project.</p>
+								<a href="/contact" class="flex items-center justify-center gap-2 py-3 bg-white text-primary-600 rounded-lg font-bold text-sm hover:bg-primary-50 transition-colors">
+									Talk to an Expert
+									<ArrowRight className="w-4 h-4" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Gallery Section (Optional) -->
+		{service.gallery && service.gallery.length > 0 && (
+			<section class="section-padding bg-gray-50">
+				<div class="container-custom">
+					<ScrollReveal client:load>
+						<h2 class="text-3xl font-heading font-bold mb-12 italic text-center">Service Gallery</h2>
+					</ScrollReveal>
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						{service.gallery.map((img) => (
+							<ScrollReveal client:load className="rounded-2xl overflow-hidden shadow-premium aspect-square">
+								<img src={img} alt={`${service.title} Gallery`} class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
+							</ScrollReveal>
+						))}
+					</div>
+				</div>
+			</section>
+		)}
+
+		<!-- Related Projects -->
+		{serviceProjects.length > 0 && (
+			<section class="section-padding bg-white overflow-hidden">
+				<div class="container-custom">
+					<div class="flex items-end justify-between mb-12">
+						<div>
+							<ScrollReveal client:load>
+								<h2 class="text-3xl md:text-4xl font-heading font-bold mb-4 italic">Featured Projects</h2>
+								<p class="text-gray-600">See how we've delivered results for our clients in this sector.</p>
+							</ScrollReveal>
+						</div>
+						<a href="/projects" class="hidden md:flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all">
+							View All Projects
+							<ArrowRight className="w-5 h-5" />
+						</a>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{serviceProjects.map((project, index) => (
+							<ProjectCard project={project} index={index} client:load />
+						))}
+					</div>
+				</div>
+			</section>
+		)}
+	</main>
+
+	<Footer />
+</BaseLayout>

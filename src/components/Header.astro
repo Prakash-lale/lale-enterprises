@@ -1,0 +1,84 @@
+---
+import MobileMenu from './MobileMenu'
+
+import { navItems } from '../data/navigation'
+
+const currentPath = Astro.url.pathname
+---
+
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+	<!-- Background Layer (To avoid stacking context trapping) -->
+	<div id="header-bg" class="absolute inset-0 transition-all duration-300 bg-white/60 backdrop-blur-md border-b border-white/20"></div>
+
+	<nav id="nav-inner" class="container-custom relative z-10 py-5 transition-all duration-300">
+		<div class="flex items-center justify-between">
+			<!-- Logo -->
+			<a href="/" class="flex items-center space-x-2 group">
+				<img 
+					src="/logo.svg" 
+					alt="Lale Enterprises" 
+					class="h-10 md:h-12 w-auto transition-all group-hover:scale-105"
+				/>
+			</a>
+
+			<!-- Desktop Navigation -->
+			<div class="lg:flex hidden items-center xl:space-x-8 lg:space-x-5">
+				{navItems.map((item) => (
+					<a
+						href={item.path}
+						class={`text-[13px] font-semibold transition-colors relative group tracking-wide ${
+							currentPath === item.path
+								? 'text-primary-600'
+								: 'text-gray-800 hover:text-primary-600'
+						}`}
+					>
+						{item.name}
+						<span
+							class={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transform origin-left transition-transform ${
+								currentPath === item.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+							}`}
+						/>
+					</a>
+				))}
+			</div>
+
+			<!-- CTA Button (Desktop) -->
+			<div class="lg:block hidden">
+				<a href="/contact" class="btn-primary !py-2.5 !px-5 !text-sm">
+					Get in Touch
+				</a>
+			</div>
+
+			<!-- Mobile Menu wrapper - outside stack trap -->
+			<MobileMenu client:load currentPath={currentPath} />
+		</div>
+	</nav>
+</header>
+
+<script>
+	// Sticky header with blur background on scroll
+	const headerBg = document.getElementById('header-bg')
+	const navInner = document.getElementById('nav-inner')
+	
+	function handleScroll() {
+		if (window.scrollY > 20) {
+			headerBg?.classList.add('glass', 'shadow-md')
+			headerBg?.classList.add('bg-white/95')
+			headerBg?.classList.remove('bg-white/60')
+			navInner?.classList.add('py-3')
+			navInner?.classList.remove('py-5')
+		} else {
+			headerBg?.classList.remove('glass', 'shadow-md')
+			headerBg?.classList.remove('bg-white/95')
+			headerBg?.classList.add('bg-white/60')
+			navInner?.classList.remove('py-3')
+			navInner?.classList.add('py-5')
+		}
+	}
+
+	// Initial check
+	handleScroll()
+	
+	// Listen to scroll events
+	window.addEventListener('scroll', handleScroll, { passive: true })
+</script>

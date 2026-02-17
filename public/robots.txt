@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://laleenterprises.in/sitemap-index.xml
+
+# IndexNow
+# Search engines that support IndexNow will be notified via API during deployment

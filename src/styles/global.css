@@ -1,0 +1,110 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/outfit/600.css';
+@import '@fontsource/outfit/700.css';
+
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+@layer base {
+    :root {
+        --primary-blue: #2B7DBD;
+        --secondary-purple: #6B3FA0;
+        --accent-navy: #1A3A52;
+    }
+
+    * {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply font-sans text-gray-900 antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading font-bold;
+    }
+
+    h1 {
+        @apply text-4xl md:text-5xl lg:text-6xl;
+    }
+
+    h2 {
+        @apply text-3xl md:text-4xl lg:text-5xl;
+    }
+
+    h3 {
+        @apply text-2xl md:text-3xl lg:text-4xl;
+    }
+
+    /* Custom scrollbar styling */
+    ::-webkit-scrollbar {
+        @apply w-2;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-gray-100;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-primary-500 rounded-full;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-primary-600;
+    }
+}
+
+@layer components {
+    .container-custom {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-all duration-300 ease-in-out;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-all duration-300 ease-in-out bg-primary-500 text-white hover:bg-primary-600 hover:shadow-premium active:scale-95;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-all duration-300 ease-in-out bg-secondary-500 text-white hover:bg-secondary-600 hover:shadow-premium active:scale-95;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-all duration-300 ease-in-out border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white active:scale-95;
+    }
+
+    .card {
+        @apply bg-white rounded-xl shadow-card transition-all duration-300;
+    }
+
+    .card-hover {
+        @apply bg-white rounded-xl shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+    }
+
+    .section-padding {
+        @apply py-16 md:py-24 lg:py-32;
+    }
+
+    .gradient-bg {
+        @apply bg-gradient-to-br from-primary-50 via-white to-secondary-50;
+    }
+}
+
+@layer utilities {
+    .text-gradient {
+        @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
+    }
+
+    .glass {
+        @apply bg-white/80 backdrop-blur-md border border-white/20;
+    }
+}

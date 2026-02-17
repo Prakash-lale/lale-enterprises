@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import BackToTop from '../components/BackToTop'
+import ContactForm from '../components/ContactForm'
+import ScrollReveal from '../components/ScrollReveal'
+import { companyInfo } from '../data/company'
+import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+---
+
+<BaseLayout 
+	title="Contact Us - Lale Enterprises"
+	description="Get in touch with Lale Enterprises for your engineering project needs"
+>
+	<Header />
+	<BackToTop client:load />
+
+	<!-- Hero Section -->
+	<section class="relative pt-32 pb-16 gradient-bg">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h1 class="text-center mb-6 text-3xl md:text-5xl lg:text-6xl">
+					<span class="text-gradient">Contact Us</span>
+				</h1>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<p class="text-base md:text-lg lg:text-xl text-gray-600 text-center max-w-3xl mx-auto">
+					Let's discuss how we can help with your engineering project
+				</p>
+			</ScrollReveal>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section class="section-padding bg-white">
+		<div class="container-custom">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+				<!-- Contact Information -->
+				<div>
+					<ScrollReveal client:load>
+						<h2 class="text-3xl font-heading font-bold mb-8">Get in Touch</h2>
+						<p class="text-gray-600 mb-8 text-lg">
+							Our team is ready to discuss your project requirements and provide expert guidance.
+						</p>
+					</ScrollReveal>
+
+					<div class="space-y-6">
+						<!-- Phone -->
+						<ScrollReveal client:load delay={0.2}>
+							<div class="flex items-start gap-4 p-6 card-hover">
+								<div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+									<Phone className="w-6 h-6 text-primary-500" />
+								</div>
+								<div>
+									<h3 class="font-heading font-bold mb-2">Phone</h3>
+									{companyInfo.contact.phones.map((phone) => (
+										<a 
+											href={`tel:${phone}`} 
+											class="block text-gray-600 hover:text-primary-500 transition-colors"
+										>
+											{phone}
+										</a>
+									))}
+								</div>
+							</div>
+						</ScrollReveal>
+
+						<!-- Email -->
+						<ScrollReveal client:load delay={0.3}>
+							<div class="flex items-start gap-4 p-6 card-hover">
+								<div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+									<Mail className="w-6 h-6 text-primary-500" />
+								</div>
+								<div>
+									<h3 class="font-heading font-bold mb-2">Email</h3>
+									<a 
+										href={`mailto:${companyInfo.contact.email}`}
+										class="text-gray-600 hover:text-primary-500 transition-colors break-all"
+									>
+										{companyInfo.contact.email}
+									</a>
+								</div>
+							</div>
+						</ScrollReveal>
+
+						<!-- Address -->
+						<ScrollReveal client:load delay={0.4}>
+							<div class="flex items-start gap-4 p-6 card-hover">
+								<div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+									<MapPin className="w-6 h-6 text-primary-500" />
+								</div>
+								<div>
+									<h3 class="font-heading font-bold mb-2">Location</h3>
+									<p class="text-gray-600">
+										{companyInfo.contact.address}
+									</p>
+									<p class="text-gray-500 text-sm mt-2">
+										{companyInfo.contact.branch}
+									</p>
+								</div>
+							</div>
+						</ScrollReveal>
+
+						<!-- Business Hours -->
+						<ScrollReveal client:load delay={0.5}>
+							<div class="flex items-start gap-4 p-6 card-hover">
+								<div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+									<Clock className="w-6 h-6 text-primary-500" />
+								</div>
+								<div>
+									<h3 class="font-heading font-bold mb-2">Business Hours</h3>
+									<p class="text-gray-600">Monday - Saturday: 9:00 AM - 6:00 PM</p>
+									<p class="text-gray-600">Sunday: Closed</p>
+								</div>
+							</div>
+						</ScrollReveal>
+					</div>
+				</div>
+
+				<!-- Contact Form -->
+				<div>
+					<ScrollReveal client:load delay={0.2}>
+						<div class="card p-8">
+							<h3 class="text-2xl font-heading font-bold mb-6">Send Us a Message</h3>
+							<ContactForm client:load />
+						</div>
+					</ScrollReveal>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Map Section -->
+	<section class="section-padding gradient-bg">
+		<div class="container-custom">
+			<ScrollReveal client:load>
+				<h2 class="text-center mb-12 text-gradient">Find Us</h2>
+			</ScrollReveal>
+			<ScrollReveal client:load delay={0.2}>
+				<div class="rounded-2xl overflow-hidden shadow-premium h-96">
+					<!-- Google Maps Embed - Replace with actual coordinates -->
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d334.4336126210036!2d73.96853087633991!3d18.49794915705115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1771327176183!5m2!1sen!2sin"
+						width="100%"
+						height="100%"
+						style="border:0;"
+						allowfullscreen=""
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						title="Lale Enterprises Location"
+					></iframe>
+				</div>
+			</ScrollReveal>
+		</div>
+	</section>
+
+	<Footer />
+</BaseLayout>
