@@ -5,6 +5,7 @@ import { navItems } from '../data/navigation'
 
 const currentPath = Astro.url.pathname
 const base = import.meta.env.BASE_URL
+const cleanBase = base.endsWith('/') && base !== '/' ? base.slice(0, -1) : (base === '/' ? '' : base)
 ---
 
 <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -13,6 +14,7 @@ const base = import.meta.env.BASE_URL
 
 	<nav id="nav-inner" class="container-custom relative z-10 py-5 transition-all duration-300">
 		<div class="flex items-center justify-between">
+			<!-- Logo -->
 			<!-- Logo -->
 			<a href={base} class="flex items-center space-x-2 group">
 				<img 
@@ -26,7 +28,7 @@ const base = import.meta.env.BASE_URL
 			<div class="lg:flex hidden items-center xl:space-x-8 lg:space-x-5">
 				{navItems.map((item) => (
 					<a
-						href={(base + item.path).replace(/\/+/g, '/')}
+						href={`${cleanBase}${item.path}`}
 						class={`text-[13px] font-semibold transition-colors relative group tracking-wide ${
 							currentPath === (base + item.path).replace(/\/+/g, '/')
 								? 'text-primary-600'
@@ -45,7 +47,7 @@ const base = import.meta.env.BASE_URL
 
 			<!-- CTA Button (Desktop) -->
 			<div class="lg:block hidden">
-				<a href={(base + '/contact').replace(/\/+/g, '/')} class="btn-primary !py-2.5 !px-5 !text-sm">
+				<a href={`${cleanBase}/contact`} class="btn-primary !py-2.5 !px-5 !text-sm">
 					Get in Touch
 				</a>
 			</div>

@@ -24,6 +24,7 @@ const serviceShortNames: Record<string, string> = {
 };
 
 const base = import.meta.env.BASE_URL
+const cleanBase = base.endsWith('/') && base !== '/' ? base.slice(0, -1) : (base === '/' ? '' : base)
 // Transform featured projects for display
 const featuredProjects = projects.slice(0, 3).map(project => ({
 	...project,
@@ -94,11 +95,11 @@ const featuredProjects = projects.slice(0, 3).map(project => ({
 
 					<ScrollReveal client:load delay={0.8} direction="up">
 						<div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
-							<a href={(base + '/services').replace(/\/+/g, '/')} class="btn-primary group px-8 py-3.5 text-base md:text-lg">
+							<a href={`${cleanBase}/services`} class="btn-primary group px-8 py-3.5 text-base md:text-lg">
 								Our Services
 								<ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
 							</a>
-							<a href={(base + '/contact').replace(/\/+/g, '/')} class="btn-outline px-8 py-3.5 text-base md:text-lg border-2">
+							<a href={`${cleanBase}/contact`} class="btn-outline px-8 py-3.5 text-base md:text-lg border-2">
 								Get in Touch
 							</a>
 						</div>
@@ -227,7 +228,7 @@ const featuredProjects = projects.slice(0, 3).map(project => ({
 
 			<ScrollReveal client:load delay={0.6}>
 				<div class="text-center mt-12">
-					<a href={(base + '/services').replace(/\/+/g, '/')} class="btn-primary">
+					<a href={`${cleanBase}/services`} class="btn-primary">
 						View All Services
 					</a>
 				</div>
@@ -305,7 +306,7 @@ const featuredProjects = projects.slice(0, 3).map(project => ({
 					</ScrollReveal>
 				</div>
 				<ScrollReveal client:load delay={0.4}>
-					<a href={(base + '/projects').replace(/\/+/g, '/')} class="btn-outline">
+					<a href={`${cleanBase}/projects`} class="btn-outline">
 						View All Projects <ArrowRight className="ml-2 w-4 h-4" />
 					</a>
 				</ScrollReveal>
@@ -354,7 +355,7 @@ const featuredProjects = projects.slice(0, 3).map(project => ({
 				</ScrollReveal>
 				<ScrollReveal client:load delay={0.4}>
 					<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-						<a href={(base + '/contact').replace(/\/+/g, '/')} class="btn bg-white text-primary-500 hover:bg-gray-100">
+						<a href={`${cleanBase}/contact`} class="btn bg-white text-primary-500 hover:bg-gray-100">
 							Contact Us Today
 						</a>
 						<a href="tel:+918956813579" class="btn border-2 border-white text-white hover:bg-white hover:text-primary-500">

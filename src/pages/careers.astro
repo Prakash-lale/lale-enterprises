@@ -7,6 +7,8 @@ import ScrollReveal from '../components/ScrollReveal'
 import { jobs } from '../data/jobs'
 import { Briefcase, MapPin, Clock, ArrowRight, Shield, Zap, Users, Trophy } from 'lucide-react'
 const base = import.meta.env.BASE_URL
+const cleanBase = base.endsWith('/') && base !== '/' ? base.slice(0, -1) : (base === '/' ? '' : base)
+---
 
 const benefits = [
     {
@@ -52,7 +54,7 @@ const benefits = [
 		<section class="relative py-24 bg-gray-900 text-white overflow-hidden">
 			<div class="absolute inset-0 opacity-20">
 				<div class="absolute inset-0 bg-primary-600/30 mix-blend-multiply"></div>
-				<img src={`${base}/heroimage.png`.replace(/\/+/g, '/')} alt="Team working" class="w-full h-full object-cover grayscale" />
+				<img src={`${cleanBase}/heroimage.png`} alt="Team working" class="w-full h-full object-cover grayscale" />
 			</div>
 			
 			<div class="container-custom relative z-10 text-center">

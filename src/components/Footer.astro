@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin } from 'lucide-react'
 
 const currentYear = new Date().getFullYear()
 const base = import.meta.env.BASE_URL
+const cleanBase = base.endsWith('/') && base !== '/' ? base.slice(0, -1) : (base === '/' ? '' : base)
 
 const footerLinks = {
 	company: [
@@ -52,7 +53,7 @@ const footerLinks = {
 					{footerLinks.company.map((link) => (
 						<li>
 							<a 
-								href={(base + link.href).replace(/\/+/g, '/')}
+								href={`${cleanBase}${link.href}`}
 								class="text-gray-300 hover:text-white transition-colors"
 							>
 								{link.name}
@@ -69,7 +70,7 @@ const footerLinks = {
 					{footerLinks.services.map((link) => (
 						<li>
 							<a 
-								href={(base + link.href).replace(/\/+/g, '/')}
+								href={`${cleanBase}${link.href}`}
 								class="text-gray-300 hover:text-white transition-colors"
 							>
 								{link.name}

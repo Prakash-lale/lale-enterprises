@@ -34,6 +34,7 @@ const displayProjects = projects.map(project => ({
 	category: serviceShortNames[project.serviceId] || project.category
 }));
 const base = import.meta.env.BASE_URL
+const cleanBase = base.endsWith('/') && base !== '/' ? base.slice(0, -1) : (base === '/' ? '' : base)
 ---
 
 <BaseLayout 
@@ -88,12 +89,13 @@ const base = import.meta.env.BASE_URL
 				</ScrollReveal>
 				<ScrollReveal client:load delay={0.4}>
 					<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-						<a href={(base + '/contact').replace(/\/+/g, '/')} class="btn-primary min-w-[200px]">
-							Start a Consultation
-						</a>
-						<a href={(base + '/services').replace(/\/+/g, '/')} class="btn-outline border-white text-white hover:bg-white hover:text-accent-navy min-w-[200px]">
-							Explore Services
-						</a>
+							<a href={`${cleanBase}/contact`} class="btn-primary group">
+								Start a Consultation
+								<ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+							</a>
+							<a href={`${cleanBase}/services`} class="btn-secondary bg-white">
+								Explore Services
+							</a>
 					</div>
 				</ScrollReveal>
 			</div>

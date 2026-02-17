@@ -83,11 +83,11 @@ export default function MobileMenu({ currentPath, base }: MobileMenuProps) {
                                 navItems.map((item, index) => (
                                     <motion.a
                                         key={item.path}
-                                        href={(base + item.path).replace(/\/+/g, '/')}
+                                        href={item.path === '/' ? base : `${base.replace(/\/$/, '')}${item.path}`}
                                         initial={{ opacity: 0, x: 20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.1 + index * 0.05 }}
-                                        className={`block px-8 py-4 text-xl font-heading font-bold transition-all border-l-4 ${currentPath === (base + item.path).replace(/\/+/g, '/')
+                                        className={`block px-8 py-4 text-xl font-heading font-bold transition-all border-l-4 ${currentPath === (base.replace(/\/$/, '') + item.path).replace(/\/+/g, '/')
                                             ? 'text-primary-600 bg-primary-50 border-primary-500'
                                             : 'text-gray-900 hover:text-primary-500 hover:bg-gray-50 border-transparent'
                                             }`}
@@ -105,7 +105,7 @@ export default function MobileMenu({ currentPath, base }: MobileMenuProps) {
                         <div className="p-8 border-t border-gray-100 bg-gray-50/80">
                             <p className="text-sm text-gray-500 mb-6 font-medium">Ready for engineering excellence?</p>
                             <a
-                                href={(base + '/contact').replace(/\/+/g, '/')}
+                                href={`${base.replace(/\/$/, '')}/contact`}
                                 className="btn-primary w-full text-center py-4 text-lg shadow-lg"
                                 onClick={() => setIsOpen(false)}
                             >

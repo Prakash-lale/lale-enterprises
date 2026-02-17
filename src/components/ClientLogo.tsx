@@ -17,7 +17,7 @@ export default function ClientLogo({ client, index }: ClientLogoProps) {
             className="card-hover p-6 flex items-center justify-center min-h-[120px] group bg-white"
         >
             <img
-                src={`${import.meta.env.BASE_URL}${client.logo}`.replace(/\/+/g, '/')}
+                src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}${client.logo}`}
                 alt={client.alt}
                 className="max-w-full max-h-16 w-auto h-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100"
                 loading="lazy"
