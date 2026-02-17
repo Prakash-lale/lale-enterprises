@@ -4,8 +4,8 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://Prakash-lale.github.io',
-  base: '/lale-enterprises/',
+  site: 'https://laleenterprises.in',
+  base: '/',
   integrations: [
     react(),
     sitemap(),
