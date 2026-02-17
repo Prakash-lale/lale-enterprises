@@ -7,6 +7,8 @@ import ScrollReveal from '../components/ScrollReveal'
 import { services } from '../data/services'
 import * as Icons from 'lucide-react'
 import { Check } from 'lucide-react'
+
+const base = import.meta.env.BASE_URL
 ---
 
 <BaseLayout 
@@ -71,7 +73,7 @@ import { Check } from 'lucide-react'
 
 							<ScrollReveal client:load delay={0.5}>
 								<div class="mt-10">
-									<a href={`/services/${service.id}`} class="btn-primary group inline-flex">
+									<a href={(base + `/services/${service.id}`).replace(/\/+/g, '/')} class="btn-primary group inline-flex">
 										View Technical Details
 										<Icons.ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
 									</a>
@@ -85,7 +87,7 @@ import { Check } from 'lucide-react'
 								<div class="relative rounded-2xl overflow-hidden shadow-premium aspect-video bg-gradient-to-br from-primary-100 to-secondary-100">
 									{service.image ? (
 										<img 
-											src={service.image} 
+											src={(base + service.image).replace(/\/+/g, '/')} 
 											alt={service.title} 
 											class="w-full h-full object-cover"
 										/>
