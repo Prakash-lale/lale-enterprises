@@ -4,6 +4,7 @@ import MobileMenu from './MobileMenu'
 import { navItems } from '../data/navigation'
 
 const currentPath = Astro.url.pathname
+const base = import.meta.env.BASE_URL
 ---
 
 <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -15,7 +16,7 @@ const currentPath = Astro.url.pathname
 			<!-- Logo -->
 			<a href="/" class="flex items-center space-x-2 group">
 				<img 
-					src="/logo.svg" 
+					src={`${import.meta.env.BASE_URL}logo.svg`.replace(/\/+/g, '/')} 
 					alt="Lale Enterprises" 
 					class="h-10 md:h-12 w-auto transition-all group-hover:scale-105"
 				/>
@@ -27,7 +28,7 @@ const currentPath = Astro.url.pathname
 					<a
 						href={item.path}
 						class={`text-[13px] font-semibold transition-colors relative group tracking-wide ${
-							currentPath === item.path
+							currentPath === (base + item.path).replace(/\/+/g, '/')
 								? 'text-primary-600'
 								: 'text-gray-800 hover:text-primary-600'
 						}`}
@@ -35,7 +36,7 @@ const currentPath = Astro.url.pathname
 						{item.name}
 						<span
 							class={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transform origin-left transition-transform ${
-								currentPath === item.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+								currentPath === (base + item.path).replace(/\/+/g, '/') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
 							}`}
 						/>
 					</a>
